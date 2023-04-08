@@ -122,7 +122,12 @@ result_label.grid(row=3, column=0, sticky="w")
 #
 result_label_TXT = tk.Entry(panel01)
 result_label_TXT.grid(row=3, column=1, sticky="ew")
-
+# Size per PIP
+size_per_pip = tk.Label(panel01, text="Size per PIP:")
+size_per_pip.grid(row=4, column=0, sticky="w")
+#
+size_per_pip_TXT = tk.Entry(panel01)
+size_per_pip_TXT.grid(row=4, column=1, sticky="ew")
 #--------------------------------------------------------
 # Start the Tkinter main loop
 
