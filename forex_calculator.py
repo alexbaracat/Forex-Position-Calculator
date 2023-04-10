@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox  # import messagebox for displaying warnings
+from tkinter import messagebox
 
 # List of Pairs
 intervals = ["USD", "CAD", "JPY", "NZD", "AUD"]
@@ -50,6 +50,24 @@ def curr_pair2(*args):
     pair2_combobox['values'] = pair2_values
     pair2_combobox.current(0)
 
+def calc_pip_value():
+    result_str = result_label_TXT.get()
+    sizepip_str = sizepip_size_TXT.get()
+
+    if not is_number(result_str) or not is_number(sizepip_str):
+        messagebox.showwarning("Invalid input", "Please enter valid numeric values for result and position in pip.")
+        return
+
+    result = float(result_str)
+    sizepip = float(sizepip_str)
+    pip_value = result / sizepip
+    curr_per_pip_TXT.delete(0, tk.END)
+    curr_per_pip_TXT.insert(0, str(pip_value))
+def calculate_both():
+    position()
+    calc_pip_value()
+
+
 print("hello world")
 # ------------------------- GUI -------------------------
 
@@ -90,8 +108,8 @@ pair2_combobox = ttk.Combobox(panel1, values=pair2_values)
 pair2_combobox.current(0)
 pair2_combobox.grid(row=1, column=0, sticky="ew")
 
-# Bind the Pair I combobox to the curr_pair2 function
-pair1_combobox.bind("<<ComboboxSelected>>", curr_pair2)
+# Bind the Pair II combobox to the curr_pair1 function
+pair2_combobox.bind("<<ComboboxSelected>>", curr_pair1)
 
 # NEW PANEL UNDER PANEL 0 AND PANEL 1 ----------------
 panel01 = tk.Frame(window)
@@ -111,23 +129,28 @@ risk_label.grid(row=1, column=0, sticky="w")
 risk_combobox = ttk.Combobox(panel01, values=risk_values)
 risk_combobox.current(0)
 risk_combobox.grid(row=1, column=1, sticky="ew")
-
+#  SIZEPIP
+sizepip_label = tk.Label(panel01, text="Position in PIP:")
+sizepip_label.grid(row=2, column=0, sticky="w")
+#
+sizepip_size_TXT = tk.Entry(panel01)
+sizepip_size_TXT.grid(row=2, column=1, sticky="ew")
 # CALCULATE BUTTON
-display_button = tk.Button(panel01, text="Calculate", command=position)
-display_button.grid(row=2, column=1, sticky="e", padx=5)
+display_button = tk.Button(panel01, text="Calculate", command=calculate_both)
+display_button.grid(row=3, column=1, sticky="e", padx=5)
 
 # RESULT
 result_label = tk.Label(panel01, text="Result:")
-result_label.grid(row=3, column=0, sticky="w")
+result_label.grid(row=4, column=0, sticky="w")
 #
 result_label_TXT = tk.Entry(panel01)
-result_label_TXT.grid(row=3, column=1, sticky="ew")
+result_label_TXT.grid(row=4, column=1, sticky="ew")
 # Size per PIP
-size_per_pip = tk.Label(panel01, text="Size per PIP:")
-size_per_pip.grid(row=4, column=0, sticky="w")
+curr_per_pip = tk.Label(panel01, text="$ per PIP:")
+curr_per_pip.grid(row=5, column=0, sticky="w")
 #
-size_per_pip_TXT = tk.Entry(panel01)
-size_per_pip_TXT.grid(row=4, column=1, sticky="ew")
+curr_per_pip_TXT = tk.Entry(panel01)
+curr_per_pip_TXT.grid(row=5, column=1, sticky="ew")
 #--------------------------------------------------------
 # Start the Tkinter main loop
 
