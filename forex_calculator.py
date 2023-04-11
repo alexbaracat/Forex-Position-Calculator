@@ -113,6 +113,7 @@ pair2_combobox.bind("<<ComboboxSelected>>", curr_pair1)
 
 # NEW PANEL UNDER PANEL 0 AND PANEL 1 ----------------
 panel01 = tk.Frame(window)
+
 panel01.grid(row=2, column=0, columnspan=3, sticky="nsew")
 
 # POSITION SIZE
@@ -155,4 +156,5 @@ curr_per_pip_TXT.grid(row=5, column=1, sticky="ew")
 # Start the Tkinter main loop
 
 window.mainloop()
+
 #--------------------------------------------------------
